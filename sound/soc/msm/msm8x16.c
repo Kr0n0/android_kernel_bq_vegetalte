@@ -29,7 +29,7 @@
 #include <sound/jack.h>
 #include <sound/q6afe-v2.h>
 #include <soc/qcom/socinfo.h>
-#include <qdsp6v2/msm-pcm-routing-v2.h>
+#include "qdsp6v2/msm-pcm-routing-v2.h"
 #include "../codecs/msm8x16-wcd.h"
 #include "../codecs/wcd9306.h"
 #define DRV_NAME "msm8x16-asoc-wcd"
@@ -62,7 +62,7 @@ static int msm_pri_mi2s_rx_ch = 1;
 static int msm_proxy_rx_ch = 2;
 #ifdef CONFIG_EXT_EARPHONE_PA
 static int cdc_ext_earphone_pa;
-static int cdc_ext_earphone_pa_pwr;	
+static int cdc_ext_earphone_pa_pwr;
 #endif
 static int msm8x16_enable_codec_ext_clk(struct snd_soc_codec *codec, int enable,
 					bool dapm);
@@ -152,7 +152,7 @@ void *def_tapan_mbhc_cal(void)
 	btn_low = wcd9xxx_mbhc_cal_btn_det_mp(btn_cfg, MBHC_BTN_DET_V_BTN_LOW);
 	btn_high = wcd9xxx_mbhc_cal_btn_det_mp(btn_cfg,
 					       MBHC_BTN_DET_V_BTN_HIGH);
-#ifdef CONFIG_L8200_COMMON	
+#ifdef CONFIG_L8200_COMMON
 	btn_low[0] = -50;
 	btn_high[0] = 100;
 #else
@@ -1941,7 +1941,7 @@ int msm8x16_enable_ext_earphone_pa_pwr(u32 on)
 	int retval = -1;
 	retval = gpio_direction_output(cdc_ext_earphone_pa, on);
 	if (retval) {
-		printk(KERN_ERR	
+		printk(KERN_ERR
 			"%s unable to set direction for gpio[%d]\n", __func__,cdc_ext_earphone_pa);
 	}
 	return retval;
@@ -1952,11 +1952,11 @@ int msm8x16_enable_ext_earphone_pa(u32 on)
 	int retval = -1;
 	retval = gpio_direction_output(cdc_ext_earphone_pa_pwr, on);
 	if (retval) {
-		printk(KERN_ERR	
+		printk(KERN_ERR
 			"%s unable to set direction for gpio[%d]\n", __func__,cdc_ext_earphone_pa_pwr);
 	}
 	return retval;
-	
+
 }
 
 static int msm8x16_ext_earphone_power_amp_init(struct platform_device *pdev,
@@ -1988,7 +1988,7 @@ static int msm8x16_ext_earphone_power_amp_init(struct platform_device *pdev,
 		}
 
 
-		
+
 		if (gpio_is_valid(cdc_ext_earphone_pa_pwr)) {
 			gpio_free(cdc_ext_earphone_pa_pwr);
 			/* configure cdc_ext_earphone_pa_pwr out gpio */
@@ -2002,10 +2002,10 @@ static int msm8x16_ext_earphone_power_amp_init(struct platform_device *pdev,
 		}
 		else
 		{
-			printk(KERN_ERR	
+			printk(KERN_ERR
 					"%s gpio[%d] is unvalid\n", __func__,cdc_ext_earphone_pa_pwr);
 		}
-		
+
 
 		if (gpio_is_valid(cdc_ext_earphone_pa)) {
 			/* configure cdc_ext_earphone_pa out gpio */
@@ -2020,7 +2020,7 @@ static int msm8x16_ext_earphone_power_amp_init(struct platform_device *pdev,
 		}
 		else
 		{
-			printk(KERN_ERR	
+			printk(KERN_ERR
 					"%s gpio[%d] is unvalid\n", __func__,cdc_ext_earphone_pa);
 
 		}
@@ -2028,8 +2028,8 @@ static int msm8x16_ext_earphone_power_amp_init(struct platform_device *pdev,
 		already_init = true;
 	}
 
-	return retval;	  
-	
+	return retval;
+
 }
 #endif
 
@@ -2130,7 +2130,7 @@ int populate_ext_snd_card_dt_data(struct platform_device *pdev)
 	}
 	ext_cdc_pinctrl_info.pinctrl = pinctrl;
 	/* get all the states handles from Device Tree*/
-	ext_cdc_pinctrl_info.tlmm_sus = pinctrl_lookup_state(pinctrl, 
+	ext_cdc_pinctrl_info.tlmm_sus = pinctrl_lookup_state(pinctrl,
 			"ext_cdc_tlmm_lines_sus");
 	if (IS_ERR(ext_cdc_pinctrl_info.tlmm_sus)) {
 		pr_err("%s: Unable to get pinctrl disable state handle\n",
